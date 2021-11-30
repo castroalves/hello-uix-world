@@ -6,7 +6,12 @@ import {
 } from '@graphcms/uix-react-sdk'
 
 const MyField = () => {
-    const { value, onChange } = useUiExtension();
+    const { value, onChange, isTableCell } = useUiExtension();
+    console.log('isTableCell:', isTableCell);
+    console.log('doors:', value);
+    if (isTableCell) {
+        return <p>{value}</p>;
+    }
     return <input 
         value={value} 
         onChange={({target: {value: val}}) => onChange(val)} 
@@ -17,7 +22,10 @@ const MyField = () => {
 const declaration = {
     extensionType: 'field',
     fieldType: FieldExtensionType.STRING,
-    features: [FieldExtensionFeature.FieldRenderer],
+    features: [
+        FieldExtensionFeature.FieldRenderer,
+        FieldExtensionFeature.TableRenderer,
+    ],
     name: 'Hello UIX World',
     config: {
         API_KEY: {
