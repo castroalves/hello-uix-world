@@ -1,8 +1,8 @@
-import HelloUixWorld from './extensions/HelloUixWorld';
+import ToggleUix from './extensions/ToggleUix';
 
 function App() {
   return (
-    <HelloUixWorld />
+    <ToggleUix />
   );
 }
 
