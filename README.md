@@ -2,6 +2,8 @@
 
 This is a sample project to demo GraphCMS Sidebar UI Extension capabilities.
 
+<div style="position: relative; padding-bottom: 52.1875%; height: 0;"><iframe src="https://www.loom.com/embed/67c0ba9e40b54c55bede7c37063a77ec" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
 ## Step 1) Creating the Car Model
 
 First, you must create a Car model with the following fields:
