@@ -6,15 +6,14 @@ import {
 } from '@graphcms/uix-react-sdk'
 
 const SerpPreview = () => {
-    const { form: { subscribeToFieldState, getFieldState } } = useUiExtension();
+    const { form: { subscribeToFieldState } } = useUiExtension();
     const [ name, setName ] = useState('This is the title');
     const [ description, setDescription ] = useState('This is the description');
     const [ brand, setBrand ] = useState('Brand');
   
     useEffect(() => {
-        let unsubscribeNameField;
         async function subscribe() {
-            unsubscribeNameField = await subscribeToFieldState(
+            await subscribeToFieldState(
                 'name',
                 state => {
                     setName(state.value);
@@ -22,16 +21,12 @@ const SerpPreview = () => {
                 { value: true }
             );
         }
-        subscribe();
-        return () => {
-            //unsubscribeNameField();
-        }
+        return () => subscribe();
     },[subscribeToFieldState, name]);
 
     useEffect(() => {
-        let unsubscribeDescriptionField;
         async function subscribe() {
-            unsubscribeDescriptionField = await subscribeToFieldState(
+            await subscribeToFieldState(
                 'description',
                 state => {
                     setDescription(state.value);
@@ -39,16 +34,12 @@ const SerpPreview = () => {
                 { value: true }
             );
         }
-        subscribe();
-        return () => {
-            //unsubscribeDescriptionField();
-        }
+        return () => subscribe();
     },[subscribeToFieldState, description]);
 
     useEffect(() => {
-        let unsubscribeBrandField;
         async function subscribe() {
-            unsubscribeBrandField = await subscribeToFieldState(
+            await subscribeToFieldState(
                 'brand',
                 state => {
                     setBrand(state.value);
@@ -56,10 +47,7 @@ const SerpPreview = () => {
                 { value: true }
             );
         }
-        subscribe();
-        return () => {
-            //unsubscribeBrandField();
-        }
+        return () => subscribe();
     },[subscribeToFieldState, brand]);
 
     return (
