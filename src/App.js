@@ -1,8 +1,8 @@
-import HelloUixWorld from './extensions/HelloUixWorld';
+import GoogleSerpPreview from "./extensions/GoogleSerpPreview";
 
 function App() {
   return (
-    <HelloUixWorld />
+    <GoogleSerpPreview />
   );
 }
 
