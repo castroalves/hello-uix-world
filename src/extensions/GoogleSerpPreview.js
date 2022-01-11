@@ -6,28 +6,29 @@ import {
 } from '@graphcms/uix-react-sdk'
 
 const SerpPreview = () => {
-    const { form: { subscribeToFieldState } } = useUiExtension();
-    const [ name, setName ] = useState('This is the title');
+    const { extension, sidebarConfig, form: { subscribeToFieldState } } = useUiExtension();
+    const [ title, setTitle ] = useState('This is the title');
     const [ description, setDescription ] = useState('This is the description');
-    const [ brand, setBrand ] = useState('Brand');
+
+    const siteUrl = extension.config.SITE_URL;
   
     useEffect(() => {
         async function subscribe() {
             await subscribeToFieldState(
-                'name',
+                sidebarConfig.TITLE_FIELD,
                 state => {
-                    setName(state.value);
+                    setTitle(state.value);
                 },
                 { value: true }
             );
         }
         return () => subscribe();
-    },[subscribeToFieldState, name]);
+    },[subscribeToFieldState, sidebarConfig.TITLE_FIELD]);
 
     useEffect(() => {
         async function subscribe() {
             await subscribeToFieldState(
-                'description',
+                sidebarConfig.DESCRIPTION_FIELD,
                 state => {
                     setDescription(state.value);
                 },
@@ -35,20 +36,7 @@ const SerpPreview = () => {
             );
         }
         return () => subscribe();
-    },[subscribeToFieldState, description]);
-
-    useEffect(() => {
-        async function subscribe() {
-            await subscribeToFieldState(
-                'brand',
-                state => {
-                    setBrand(state.value);
-                },
-                { value: true }
-            );
-        }
-        return () => subscribe();
-    },[subscribeToFieldState, brand]);
+    },[subscribeToFieldState, sidebarConfig.DESCRIPTION_FIELD]);
 
     return (
         <div style={{
@@ -58,16 +46,14 @@ const SerpPreview = () => {
             <div style={{
                 fontSize: '12px',
                 marginBottom: '5px',
-            }}>autoreviews.com</div>
+            }}>{siteUrl || 'website.com'}</div>
             <div style={{
                 fontSize: '16px',
                 fontWeight: 'bold',
                 color: 'blue',
                 marginBottom: '5px',
-            }}>{brand} {name} | AutoReviews</div>
-            <div style={{
-                textAlign: 'justify',
-            }}>{description?.substring(0, 155)}...</div>
+            }}>{title || 'Title here'}</div>
+            <div>{description?.substring(0, 155) || 'Description here'}...</div>
         </div>
     );
 };
@@ -76,6 +62,25 @@ const declaration = {
     extensionType: 'formSidebar',
     name: 'Google SERP Preview',
     description: 'Preview your content on Google',
+    config: {
+        SITE_URL: {
+            type: 'string',
+            displayName: 'Site URL',
+            required: true,
+        },
+    },
+    sidebarConfig: {
+        TITLE_FIELD: {
+            type: 'string',
+            displayName: 'Title Field',
+            required: true,
+        },
+        DESCRIPTION_FIELD: {
+            type: 'string',
+            displayName: 'Description Field',
+            required: true,
+        }
+    }
 };
 
 const GoogleSerpPreview = () => {
