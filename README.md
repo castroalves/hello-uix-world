@@ -10,7 +10,6 @@ First, you must create a Car model with the following fields:
 
 - name
 - description
-- brand
 
 ## Step 2) Installing Sidebar UI Extension
 
